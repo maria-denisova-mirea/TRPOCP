@@ -26,21 +26,12 @@ jobs:
     - name: Run tests
       run: pytest
 
-    - name: Check if all checks have passed
-      id: check_status
+    - name: Automatically merge on successful testing
+      if: success()
       run: |
-        echo "::set-output name=checks_passed::true"
-        
-    - name: Approve the PR when all checks pass
-      if: ${{ steps.check_status.outputs.checks_passed }}
-      uses: peter-evans/pull-request-auto-approve-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Merge the PR after approval
-      if: ${{ steps.check_status.outputs.checks_passed }}
-      uses: peter-evans/auto-merge@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        method: squash
-        merge-commit-message-style: pr-title-plus-body
+        git config user.name "${{ github.actor }}"
+        git config user.email "${{ github.actor }}@users.noreply.github.com"
+        git checkout main
+        git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
+        git merge --ff-only refs/remotes/origin/pr/${{ github.event.pull_request.number }}
+        git push origin HEAD:${{ github.base_ref }}
