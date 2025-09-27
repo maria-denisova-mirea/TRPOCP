@@ -29,9 +29,6 @@ jobs:
     - name: Automatically merge on successful testing
       if: success()
       run: |
-        git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor }}@users.noreply.github.com"
-        git checkout main
-        git fetch origin +refs/pull/*:refs/remotes/development/pr/*
-        git merge --ff-only refs/remotes/development/pr/${{ github.event.pull_request.number }}
-        git push origin main
+        git checkout development
+        git merge --ff-only refs/remotes/origin/pr/${{ github.event.pull_request.number }}/head
+        git push origin
