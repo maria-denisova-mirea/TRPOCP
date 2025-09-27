@@ -28,7 +28,7 @@ jobs:
       run: pytest
 
     - name: Automatically merge on successful testing
-      if: ${{ success() }}
+      if: ${{ success() && github.event_name == 'pull_request' }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
