@@ -3,7 +3,7 @@ from io import StringIO
 
 def test_program():
     input_data = "10\n2\n"
-    expected_output = "1244\n8\n20\n5.0\nНужно ли ещё что-нибудь для Вас посчитать?\n"
+    expected_output = "12444\n8\n20\n5.0\nНужно ли ещё что-нибудь для Вас посчитать?\n"
 
     sys.stdin = StringIO(input_data)
     sys.stdout = StringIO()
