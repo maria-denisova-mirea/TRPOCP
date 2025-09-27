@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
     - name: Checkout code
@@ -27,17 +30,10 @@ jobs:
     - name: Run tests
       run: pytest
 
-  automerge:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - id: automerge
-        name: automerge
-        uses: pascalgn/automerge-action@v0.16.4
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          MERGE_LABELS: ''
-          MERGE_METHOD: 'merge'
-          MERGE_REQUIRED_APPROVALS: '0'
+    - name: automerge
+      uses: pascalgn/automerge-action@v0.16.4
+      env:
+        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        MERGE_LABELS: ''
+        MERGE_METHOD: 'merge'
+        MERGE_REQUIRED_APPROVALS: '0'
