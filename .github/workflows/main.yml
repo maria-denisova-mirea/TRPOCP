@@ -33,7 +33,7 @@ jobs:
         
     - name: Approve the PR when all checks pass
       if: ${{ steps.check_status.outputs.checks_passed }}
-      uses: brentreiber/pull-request-auto-approve-action@v1
+      uses: TRPOCP/pull-request-auto-approve-action@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
