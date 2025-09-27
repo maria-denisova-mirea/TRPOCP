@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - main 
       - development
   pull_request:
     types: [opened, synchronize]
@@ -26,3 +26,17 @@ jobs:
 
     - name: Run tests
       run: pytest
+
+    - name: Automatically merge on successful testing
+      if: ${{ success() && github.event_name == 'pull_request' }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+            const prNumber = context.payload.number;
+            await github.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              merge_method: "squash"
+            });
