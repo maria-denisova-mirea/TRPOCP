@@ -27,8 +27,15 @@ jobs:
       run: pytest
 
     - name: Automatically merge on successful testing
-      if: success()
-      run: |
-        git checkout development
-        git merge refs/remotes/origin/pr/${{ github.event.pull_request.number }}/head
-        git push origin
+      if: ${{ success() }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+            const prNumber = context.payload.pull_request.number;
+            await github.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              merge_method: "squash"
+            });
