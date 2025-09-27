@@ -32,7 +32,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-            const prNumber = github.event.pull_request.number;
+            const prNumber = context.payload.number;
             await github.pulls.merge({
               owner: context.repo.owner,
               repo: context.repo.repo,
