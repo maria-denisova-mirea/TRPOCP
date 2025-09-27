@@ -31,7 +31,7 @@ jobs:
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
-        git checkout main
+        git checkout develop
         git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
         git merge --ff-only refs/remotes/origin/pr/${{ github.event.pull_request.number }}
-        git push origin HEAD:${{ github.base_ref }}
+        git push origin main
