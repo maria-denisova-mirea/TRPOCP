@@ -1,0 +1,35 @@
+on:
+  push:
+    branches: 
+     - main
+     - release
+    tags:
+      - 'v*.*.*'
+
+permissions:
+    contents: write
+
+jobs:
+  docs-gen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.12.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Sphinx
+      - name: Sphinx build
+        run: |
+          sphinx-build docs/source docs/_build
+      - name: Deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          allow_empty_commit: true
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          publish_branch: release
+          publish_dir: docs/_build/
