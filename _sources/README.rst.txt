@@ -1,4 +1,12 @@
-Project Title
+Добро пожаловать в приложение "Калькулятор"!
 =============
 
-This is the documentation for Project Title.
+Классическое приложение и классический аналог всем известного калькулятора
+
+Установка:
+-------------
+
+.. code-block:: bash
+
+    git clone https://github.com/maria-denisova-mirea/TRPOCP.git <ваш_локальный_репозиторий>
+    cd <ваш_локальный_репозиторий>
