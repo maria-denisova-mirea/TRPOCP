@@ -30,6 +30,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           allow_empty_commit: true
-          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: release
           publish_dir: docs/_build/
