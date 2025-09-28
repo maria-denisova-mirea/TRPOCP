@@ -25,7 +25,7 @@ jobs:
           pip install Sphinx
       - name: Sphinx build
         run: |
-          sphinx-build TRPOCP/person1/docs/source person1/docs/_build
+          sphinx-build ./person1/docs/source person1/docs/_build
       - name: Deploy docs
         uses: peaceiris/actions-gh-pages@v3
         with:
